@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useLenis } from './hooks/useLenis';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Preloader from './components/Preloader';
-import Hero from './sections/Hero';
-import OurStory from './sections/OurStory';
-import Gallery from './sections/Gallery';
-import OwnerProfile from './sections/OwnerProfile';
-import BusinessInfo from './sections/BusinessInfo';
-import Contact from './sections/Contact';
+import HomePage from './pages/HomePage';
+import ProductsPage from './pages/ProductsPage';
+
+// Helper component to scroll to top on page navigation
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true });
+    }
+  }, [pathname]);
+
+  return null;
+}
 
 export default function App() {
   // Initialize Lenis smooth scroll and GSAP ScrollTrigger sync
@@ -17,38 +28,32 @@ export default function App() {
   const [isPreloaded, setIsPreloaded] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#171918] text-[#F3F0E9] selection:bg-[#A68A64] selection:text-[#171918]">
-      {/* Luxury Cinematic Preloader */}
-      {!isPreloaded && (
-        <Preloader onComplete={() => setIsPreloaded(true)} />
-      )}
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen bg-[#171918] text-[#F3F0E9] selection:bg-[#A68A64] selection:text-[#171918]">
+        {/* Luxury Cinematic Preloader (shows on initial visit) */}
+        {!isPreloaded && (
+          <Preloader onComplete={() => setIsPreloaded(true)} />
+        )}
 
-      {/* Persistent Editorial Navbar */}
-      <Navbar />
+        {/* Persistent Editorial Navbar */}
+        <Navbar />
 
-      {/* Main Chapters */}
-      <main>
-        {/* Chapter 01: Hero Intro */}
-        <Hero isPreloaded={isPreloaded} />
+        {/* Page Routes */}
+        <Routes>
+          {/* Main Storytelling Home Page */}
+          <Route path="/" element={<HomePage isPreloaded={isPreloaded} />} />
 
-        {/* Chapter 02: The Business Story (Warm Ivory & Pinned Pillars) */}
-        <OurStory />
+          {/* Dedicated Full Products Page */}
+          <Route path="/products" element={<ProductsPage />} />
 
-        {/* Chapter 03: The Visual Gallery (Deep Charcoal & Lightbox) */}
-        <Gallery />
+          {/* Fallback */}
+          <Route path="*" element={<HomePage isPreloaded={isPreloaded} />} />
+        </Routes>
 
-        {/* Chapter 04: Meet the Owner (Editorial Profile & Pinned Portrait) */}
-        <OwnerProfile />
-
-        {/* Chapter 05: Business Information (Clear Verified Credentials) */}
-        <BusinessInfo />
-
-        {/* Chapter 06: Contact & Connection (Facebook & Web3Forms) */}
-        <Contact />
-      </main>
-
-      {/* Editorial Footer */}
-      <Footer />
-    </div>
+        {/* Persistent Editorial Footer */}
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }

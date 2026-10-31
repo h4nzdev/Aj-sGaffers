@@ -1,8 +1,12 @@
 import React from 'react';
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { ArrowUp, ArrowUpRight, Layers } from 'lucide-react';
 import { BUSINESS_DATA } from '../data/businessData';
 
 export default function Footer() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const scrollToTop = () => {
     if (window.__lenis) {
       window.__lenis.scrollTo(0, { duration: 1.5 });
@@ -11,12 +15,33 @@ export default function Footer() {
     }
   };
 
-  const handleNavClick = (e, href) => {
+  const handleNavClick = (e, link) => {
     e.preventDefault();
+
+    if (link.label === "Products" || link.href === "/products") {
+      navigate('/products');
+      return;
+    }
+
+    if (location.pathname !== '/') {
+      navigate(`/${link.href}`);
+      setTimeout(() => {
+        const target = document.querySelector(link.href);
+        if (target) {
+          if (window.__lenis) {
+            window.__lenis.scrollTo(link.href, { offset: -40, duration: 1.2 });
+          } else {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 100);
+      return;
+    }
+
     if (window.__lenis) {
-      window.__lenis.scrollTo(href, { offset: -40, duration: 1.2 });
+      window.__lenis.scrollTo(link.href, { offset: -40, duration: 1.2 });
     } else {
-      const target = document.querySelector(href);
+      const target = document.querySelector(link.href);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
       }
@@ -39,7 +64,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="md:col-span-5 flex flex-col justify-between">
             <div>
-              <div className="flex items-center gap-3 mb-6">
+              <Link to="/" className="flex items-center gap-3 mb-6 inline-block">
                 <div className="w-10 h-10 border border-[#A68A64]/60 bg-[#171918] flex items-center justify-center">
                   <span className="font-display text-xl text-[#A68A64]">AJ</span>
                 </div>
@@ -51,7 +76,7 @@ export default function Footer() {
                     ESTABLISHED 2013 • CEBU, PHILIPPINES
                   </p>
                 </div>
-              </div>
+              </Link>
 
               <p className="font-serif text-lg italic text-[#D6CDBE]/80 max-w-sm mb-6 leading-relaxed">
                 “Crafted through experience. Rooted in Cebu's tradition of precision metalcraft and dedicated service.”
@@ -60,7 +85,7 @@ export default function Footer() {
 
             <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-[#A68A64]">
               <span className="w-2 h-2 rounded-full bg-[#A68A64] animate-pulse"></span>
-              <span>VERIFIED CEBU ATELIER</span>
+              <span>VERIFIED CEBU ATELIER • JHO MAGBAL</span>
             </div>
           </div>
 
@@ -74,13 +99,22 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
+                    onClick={(e) => handleNavClick(e, link)}
                     className="text-sm text-[#D6CDBE]/80 hover:text-[#FAF9F6] transition-colors hover:translate-x-1 inline-block duration-200"
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/products"
+                  className="text-sm text-[#A68A64] hover:text-[#FAF9F6] transition-colors inline-flex items-center gap-1.5 font-medium"
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  <span>Full Products Page</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -91,18 +125,18 @@ export default function Footer() {
                 OFFICIAL INQUIRY
               </h4>
               <p className="text-xs text-[#D6CDBE]/70 mb-5 leading-relaxed font-light">
-                Direct all business consultations, custom blade specifications, and product availability to our verified Facebook presence.
+                Direct all business consultations, custom blade specifications, and product availability to our verified Facebook presence or hotline.
               </p>
 
               <a
                 href={BUSINESS_DATA.contact.facebook.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-between w-full p-4 border border-[#A68A64]/30 hover:border-[#A68A64] bg-[#171918]/60 transition-all duration-300 group"
+                className="inline-flex items-center justify-between w-full p-4 border border-[#A68A64]/30 hover:border-[#A68A64] bg-[#171918]/60 transition-all duration-300 group shadow-md"
               >
                 <div>
                   <div className="text-[10px] font-mono uppercase tracking-widest text-[#A68A64]">
-                    OFFICIAL FACEBOOK PAGE
+                    OFFICIAL FACEBOOK
                   </div>
                   <div className="text-sm font-medium text-[#FAF9F6] mt-0.5">
                     {BUSINESS_DATA.contact.facebook.displayName}
@@ -112,8 +146,9 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-[#A68A64]/10 text-xs font-mono text-[#D6CDBE]/60">
-              LOCATION: {BUSINESS_DATA.brand.displayLocation}
+            <div className="mt-8 pt-4 border-t border-[#A68A64]/10 text-xs font-mono text-[#D6CDBE]/60 flex items-center justify-between">
+              <span>LOCATION: CEBU CITY, PH</span>
+              <span className="text-[#A68A64] font-semibold">{BUSINESS_DATA.contact.phone}</span>
             </div>
           </div>
         </div>
@@ -125,7 +160,7 @@ export default function Footer() {
           </div>
 
           <div className="text-[11px] text-center md:text-right">
-            Independent Editorial Brand Presence • Cebu City
+            Master Gaffer Craftsman Jho Magbal • Cebu City
           </div>
 
           <button

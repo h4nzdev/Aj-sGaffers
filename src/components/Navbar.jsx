@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, MessageSquare } from 'lucide-react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { Menu, X, ArrowUpRight, MessageSquare, Layers } from 'lucide-react';
 import { BUSINESS_DATA } from '../data/businessData';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,14 +22,34 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e, href) => {
+  const handleNavClick = (e, link) => {
     e.preventDefault();
     setMobileMenuOpen(false);
 
+    if (link.label === "Products" || link.href === "/products") {
+      navigate('/products');
+      return;
+    }
+
+    if (location.pathname !== '/') {
+      navigate(`/${link.href}`);
+      setTimeout(() => {
+        const target = document.querySelector(link.href);
+        if (target) {
+          if (window.__lenis) {
+            window.__lenis.scrollTo(link.href, { offset: -40, duration: 1.2 });
+          } else {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 100);
+      return;
+    }
+
     if (window.__lenis) {
-      window.__lenis.scrollTo(href, { offset: -40, duration: 1.2 });
+      window.__lenis.scrollTo(link.href, { offset: -40, duration: 1.2 });
     } else {
-      const target = document.querySelector(href);
+      const target = document.querySelector(link.href);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
       }
@@ -37,16 +60,16 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-editorial ${
-          isScrolled
-            ? 'bg-[#171918]/90 backdrop-blur-md border-b border-[#A68A64]/20 py-4 shadow-2xl'
+          isScrolled || location.pathname === '/products'
+            ? 'bg-[#171918]/95 backdrop-blur-md border-b border-[#A68A64]/20 py-4 shadow-2xl'
             : 'bg-transparent py-6 md:py-8'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Brand Logo / Wordmark */}
-          <a
-            href="#hero"
-            onClick={(e) => handleNavClick(e, '#hero')}
+          <Link
+            to="/"
+            onClick={() => setMobileMenuOpen(false)}
             className="group flex items-center gap-3.5 focus:outline-none"
             aria-label="AJ's Gaffers & Accessories Home"
           >
@@ -61,32 +84,51 @@ export default function Navbar() {
                 GAFFERS & ACCESSORIES
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
-            {BUSINESS_DATA.navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="relative text-xs uppercase tracking-[0.22em] text-[#D6CDBE]/80 hover:text-[#FAF9F6] transition-colors py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#A68A64] hover:after:w-full after:transition-all after:duration-300"
-              >
-                {link.label}
-              </a>
-            ))}
+            {BUSINESS_DATA.navLinks.map((link) => {
+              const isProductsActive = link.label === "Products" && location.pathname === '/products';
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link)}
+                  className={`relative text-xs uppercase tracking-[0.22em] transition-colors py-1 ${
+                    isProductsActive
+                      ? 'text-[#A68A64] font-bold after:w-full'
+                      : 'text-[#D6CDBE]/80 hover:text-[#FAF9F6]'
+                  } after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-[#A68A64] hover:after:w-full after:transition-all after:duration-300`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action: Facebook Quick Inquire */}
           <div className="hidden lg:flex items-center gap-4">
+            <Link
+              to="/products"
+              className={`inline-flex items-center gap-2 px-3.5 py-2 text-[11px] font-mono tracking-widest uppercase transition-all ${
+                location.pathname === '/products'
+                  ? 'bg-[#A68A64] text-[#171918] font-bold'
+                  : 'border border-[#A68A64]/30 text-[#D6CDBE] hover:border-[#A68A64] hover:text-[#FAF9F6]'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>CATALOG</span>
+            </Link>
+
             <a
               href={BUSINESS_DATA.contact.facebook.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-[11px] font-mono tracking-widest uppercase border border-[#A68A64]/40 text-[#FAF9F6] hover:bg-[#A68A64] hover:text-[#171918] transition-all duration-300 group"
+              className="inline-flex items-center gap-2 px-4 py-2 text-[11px] font-mono tracking-widest uppercase bg-[#A68A64] text-[#171918] font-bold hover:bg-[#FAF9F6] transition-all duration-300 group shadow-md"
             >
               <span>FACEBOOK INQUIRY</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#A68A64] group-hover:text-[#171918] transition-colors" />
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
@@ -112,15 +154,19 @@ export default function Navbar() {
       >
         <div className="flex flex-col gap-6">
           <div className="text-[10px] tracking-[0.3em] font-mono text-[#A68A64] uppercase border-b border-[#A68A64]/20 pb-3">
-            MENU SECTIONS
+            SECTIONS & PAGES
           </div>
           <nav className="flex flex-col gap-4">
             {BUSINESS_DATA.navLinks.map((link, idx) => (
               <a
                 key={link.label}
                 href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="font-display text-3xl text-[#FAF9F6] hover:text-[#A68A64] transition-colors flex items-center justify-between"
+                onClick={(e) => handleNavClick(e, link)}
+                className={`font-display text-3xl transition-colors flex items-center justify-between ${
+                  link.label === "Products" && location.pathname === '/products'
+                    ? 'text-[#A68A64] font-semibold'
+                    : 'text-[#FAF9F6] hover:text-[#A68A64]'
+                }`}
               >
                 <span>{link.label}</span>
                 <span className="text-xs font-mono text-[#A68A64]">0{idx + 1}</span>
@@ -130,15 +176,25 @@ export default function Navbar() {
         </div>
 
         <div className="border-t border-[#A68A64]/20 pt-6 flex flex-col gap-4">
+          <Link
+            to="/products"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full py-3.5 px-4 bg-[#222524] border border-[#A68A64]/50 text-[#FAF9F6] text-center font-mono text-xs tracking-widest uppercase font-semibold flex items-center justify-center gap-2"
+          >
+            <Layers className="w-4 h-4 text-[#A68A64]" />
+            <span>OPEN DEDICATED PRODUCTS PAGE</span>
+          </Link>
+
           <a
             href={BUSINESS_DATA.contact.facebook.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3 px-4 bg-[#A68A64] text-[#171918] text-center font-mono text-xs tracking-widest uppercase font-semibold flex items-center justify-center gap-2"
+            className="w-full py-3 px-4 bg-[#A68A64] text-[#171918] text-center font-mono text-xs tracking-widest uppercase font-bold flex items-center justify-center gap-2"
           >
             <MessageSquare className="w-4 h-4" />
-            <span>MESSAGE US ON FACEBOOK</span>
+            <span>MESSAGE JHO MAGBAL ON FACEBOOK</span>
           </a>
+
           <div className="text-center text-[10px] uppercase font-mono tracking-widest text-[#D6CDBE]/60">
             {BUSINESS_DATA.brand.originCity}, {BUSINESS_DATA.brand.originCountry} • EST. {BUSINESS_DATA.brand.estYear}
           </div>
