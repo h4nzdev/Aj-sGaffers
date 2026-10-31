@@ -15,6 +15,16 @@ import gaffHeroImg from '../assets/gaff-hero.jfif';
 import businessStoryBoxImg from '../assets/business-story-box.png';
 import personImg from '../assets/person.png';
 
+// Authentic Product Showcase Images
+import bladePt1Img from '../assets/products/blade/pt1.jpg';
+import bladePt2Img from '../assets/products/blade/pt2.jpg';
+import bladePt3Img from '../assets/products/blade/pt3.jpg';
+import boots1Img from '../assets/products/boots/boots.jpg';
+import boots2Img from '../assets/products/boots/boots2.jpg';
+import boots3Img from '../assets/products/boots/boots3.jpg';
+import lickitImg from '../assets/products/lickit.jpg';
+import waxImg from '../assets/products/wax.jpg';
+
 export const BUSINESS_DATA = {
   // Brand & Identity
   brand: {
@@ -35,14 +45,14 @@ export const BUSINESS_DATA = {
   contact: {
     // Official Facebook Page (Primary channel for inquiries)
     facebook: {
-      url: "https://www.facebook.com/", // [EDIT: Replace with your exact Facebook Page URL, e.g. https://www.facebook.com/AJsGaffersCebu]
-      displayName: "AJ's Gaffers & Accessories Official",
-      handle: "@AJsGaffers",
-      messengerUrl: "https://m.me/", // [EDIT: Replace with your Facebook Messenger link]
+      url: "https://www.facebook.com/jho.magbal",
+      displayName: "Jho Magbal (AJ's Gaffers & Accessories)",
+      handle: "@jho.magbal",
+      messengerUrl: "https://m.me/jho.magbal",
     },
-    // Direct Contact Details
-    phone: "+63 9XX XXX XXXX", // [EDIT: Update with official mobile / inquiry phone number]
-    secondaryPhone: "+63 (32) XXX XXXX", // [EDIT: Optional landline or secondary number]
+    // Direct Contact Details (From Official Product Labels)
+    phone: "+63 906 791 6274",
+    secondaryPhone: "+63 945 689 6954",
     email: "contact@ajsgaffers.com", // [EDIT: Update with official email address]
     
     // Physical / Postal Presence
@@ -112,73 +122,101 @@ export const BUSINESS_DATA = {
     storyImage2: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80", // Raw material & craftsmanship
   },
 
-  // Chapter 03: Visual Gallery
+  // Chapter 03: Visual Gallery & Product Showcase
   gallery: {
-    chapterNumber: "02 / VISUAL ARCHIVE",
-    chapterTitle: "THE VISUAL GALLERY",
-    headline: "THE CRAFT IN FOCUS.",
-    description: "An organized visual catalog showcasing precision craftsmanship, bespoke leather cases, fine sharpening whetstones, and specialized accoutrements.",
-    categories: ["All Works", "Gaffing Accoutrements", "Leather Cases", "Maintenance & Care", "Atelier Details"],
+    chapterNumber: "02 / PRODUCT SHOWCASE",
+    chapterTitle: "THE PRODUCTS SHOWCASE",
+    headline: "AUTHENTIC CRAFT IN FOCUS.",
+    description: "An organized visual catalog showcasing our authentic master-ground competition gaff blades, custom brocade spats (sapin), friction likit rolls, and specialized binding wax.",
+    categories: ["All Products", "Master Blades", "Gaffer Boots & Spats", "Grip & Accessories"],
     items: [
       {
-        id: "item-1",
-        title: "Bespoke Precision Gaff Series",
-        category: "Gaffing Accoutrements",
-        year: "2024 Edition",
-        description: "Hand-finished edge geometry engineered with exact balance and mirror-polished surface finish.",
-        image: "https://images.unsplash.com/photo-1589792905461-389f2a9910d6?auto=format&fit=crop&w=1200&q=80",
-        aspect: "aspect-[4/5]",
+        id: "prod-blade-1",
+        title: "Competition Gaff Blade (Single)",
+        category: "Master Blades",
+        year: "Hand-Finished",
+        description: "Tempered heat-blued socket base with precision-hollowed grind, razor-honed cutting bevel, and needle-sharp penetration tip.",
+        image: bladePt1Img,
+        aspect: "aspect-[3/4]",
+        tag: "Tari Blade",
         featured: true,
       },
       {
-        id: "item-2",
-        title: "Full-Grain Leather Roll Case",
-        category: "Leather Cases",
-        year: "Heritage Collection",
-        description: "Hand-stitched vegetable-tanned leather carrier with custom compartments and brass hardware.",
-        image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=80",
-        aspect: "aspect-[4/3]",
-        featured: false,
-      },
-      {
-        id: "item-3",
-        title: "High-Grit Natural Whetstone",
-        category: "Maintenance & Care",
-        year: "Atelier Tooling",
-        description: "Dense fine-grit natural sharpening stone selected for refining razor edges with micro-bevel consistency.",
-        image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80",
+        id: "prod-blade-2",
+        title: "Curved Parabolic Tari Profile",
+        category: "Master Blades",
+        year: "Precision Curve",
+        description: "Side-profile exhibiting calibrated arc curvature engineered for optimal angle of entry, high structural stiffness, and balance.",
+        image: bladePt2Img,
         aspect: "aspect-[3/4]",
+        tag: "Precision Curve",
         featured: false,
       },
       {
-        id: "item-4",
-        title: "Master Calibration & Measurement Gauge",
-        category: "Atelier Details",
-        year: "Precision Gear",
-        description: "Micrometer gauge and verification tools used to maintain tight tolerances across all components.",
-        image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=1200&q=80",
-        aspect: "aspect-[4/5]",
+        id: "prod-blade-3",
+        title: "Master Competition Blade Wing Set",
+        category: "Master Blades",
+        year: "Calibrated Set",
+        description: "Fanned suite of hand-forged blades displaying consistent spine thickness, iridescent blue heat tempering, and uniform grind.",
+        image: bladePt3Img,
+        aspect: "aspect-[3/4]",
+        tag: "Suite of Blades",
         featured: true,
       },
       {
-        id: "item-5",
-        title: "Heavy-Duty Cord & Binding Materials",
-        category: "Gaffing Accoutrements",
-        year: "Field Essentials",
-        description: "Tensile-tested waxed cords and ergonomic wraps formulated for secure and slip-free attachment.",
-        image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80",
-        aspect: "aspect-[4/3]",
+        id: "prod-boots-1",
+        title: "Gold Brocade Heritage Spats (Sapin)",
+        category: "Gaffer Boots & Spats",
+        year: "Handcrafted",
+        description: "Artisan-tailored protective gaffer boots featuring gold leaf brocade floral patterns, reinforced cutout socket, and padded shank backing.",
+        image: boots1Img,
+        aspect: "aspect-[3/4]",
+        tag: "Traditional Sapin",
         featured: false,
       },
       {
-        id: "item-6",
-        title: "The Cebu Workbench",
-        category: "Atelier Details",
-        year: "Est. 2013",
-        description: "The dedicated workspace where every instrument is inspected, calibrated, and prepared for clients.",
-        image: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80",
+        id: "prod-boots-2",
+        title: "Crimson & Gold Checkered Boots",
+        category: "Gaffer Boots & Spats",
+        year: "Reinforced Fit",
+        description: "High-density checkered woven gaffer boots designed for firm shank placement, non-slip friction, and durable field performance.",
+        image: boots2Img,
         aspect: "aspect-[3/4]",
+        tag: "Checkered Weave",
         featured: false,
+      },
+      {
+        id: "prod-boots-3",
+        title: "Bespoke Boots & Spats Collection",
+        category: "Gaffer Boots & Spats",
+        year: "Full Assortment",
+        description: "Complete inventory of protective boots available in textured leather, carbon fiber weaves, vivid geometric patterns, and individual protective sleeves.",
+        image: boots3Img,
+        aspect: "aspect-[3/4]",
+        tag: "Multi-Pattern Pack",
+        featured: true,
+      },
+      {
+        id: "prod-lickit",
+        title: "AJ's Original Likit Friction Rolls",
+        category: "Grip & Accessories",
+        year: "Official Supply",
+        description: "Authentic AJ's Gaffers & Accessories branded friction likit rolls. Specially formulated for non-slip grip, cord locking, and firm blade anchoring.",
+        image: lickitImg,
+        aspect: "aspect-[3/4]",
+        tag: "Branded Pack",
+        featured: true,
+      },
+      {
+        id: "prod-wax",
+        title: "AJ's Specialized Binding Wax Cakes",
+        category: "Grip & Accessories",
+        year: "Official Supply",
+        description: "Natural binding wax pucks bearing official AJ's / Jho Magbal labeling. Formulated for cord conditioning, moisture resistance, and solid friction lock.",
+        image: waxImg,
+        aspect: "aspect-[3/4]",
+        tag: "Branded Pack",
+        featured: true,
       },
     ],
   },
@@ -257,7 +295,7 @@ export const BUSINESS_DATA = {
   navLinks: [
     { label: "Home", href: "#hero" },
     { label: "Our Story", href: "#story" },
-    { label: "Gallery", href: "#gallery" },
+    { label: "Products", href: "#gallery" },
     { label: "About", href: "#owner" },
     { label: "Business Info", href: "#business-info" },
     { label: "Contact", href: "#contact" },

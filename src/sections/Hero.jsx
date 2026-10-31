@@ -159,13 +159,13 @@ export default function Hero({ isPreloaded = true }) {
         </div>
 
         <div className="flex items-center gap-6 text-[11px] font-mono tracking-widest text-[#D6CDBE]/70 uppercase">
-          <span className="hidden sm:inline flex items-center gap-1.5">
-            <Compass className="w-3.5 h-3.5 text-[#A68A64]" />
-            CEBU CITY, PH
+          <span className="hidden sm:inline-flex items-center gap-2 whitespace-nowrap">
+            <Compass className="w-3.5 h-3.5 text-[#A68A64] flex-shrink-0" />
+            <span>CEBU CITY, PH</span>
           </span>
-          <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#A68A64]" />
-            11+ YEARS CRAFTSMANSHIP
+          <span className="inline-flex items-center gap-2 whitespace-nowrap">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#A68A64] flex-shrink-0" />
+            <span>11+ YEARS CRAFTSMANSHIP</span>
           </span>
         </div>
       </div>
