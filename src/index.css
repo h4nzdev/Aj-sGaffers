@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+    background-color: #171918;
+    color: #F3F0E9;
+  }
+
+  body {
+    font-family: 'DM Sans', 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #171918;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #343836;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #A68A64;
+  }
+}
+
+/* Lenis smooth scroll recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Subtle Film Grain Texture */
+.bg-grain {
+  background-image: radial-gradient(rgba(243, 240, 233, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.bg-grain-light {
+  background-image: radial-gradient(rgba(23, 25, 24, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Mask reveal clip paths */
+.clip-reveal-hidden {
+  clip-path: inset(0 100% 0 0);
+}
+.clip-reveal-visible {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Golden hairline borders */
+.border-bronze-hairline {
+  border-color: rgba(166, 138, 100, 0.25);
+}
+
+/* Editorial Serif Headings */
+.font-display-serif {
+  font-family: 'Cormorant Garamond', serif;
+  font-feature-settings: "liga" 1, "dlig" 1;
+}
+
+/* Typography styles */
+.editorial-subheading {
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
